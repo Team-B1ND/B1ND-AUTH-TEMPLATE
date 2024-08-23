@@ -1,7 +1,8 @@
 import axios, { AxiosError } from "axios";
 import token from "../token/token";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, REQUEST_TOKEN_KEY } from "../../constants/token.constants";
-import customAxios from "../../index";
+import customAxios from "./customAxios";
+import CONFIG from "src/config/config.json";
 
 let isRefreshing = false;
 let refreshSubscribers: ((accessToken: string) => void)[] = [];
@@ -14,7 +15,7 @@ const addRefeshSubscriber = (callback: (accessToken: string) => void) => {
   refreshSubscribers.push(callback);
 };
 
-const ResponseHandler = async (error: AxiosError, url: string) => {
+const ResponseHandler = async (error: AxiosError) => {
   if (error.response) {
     const {
       config: originalRequest,
@@ -28,9 +29,9 @@ const ResponseHandler = async (error: AxiosError, url: string) => {
       isRefreshing = true;
 
       try {
-        const { data: newAccessToken } = await axios.post(url, {
+        const { data: newAccessToken } = await axios.post(`${CONFIG.server}/refresh`, {
           refreshToken: usingAccessToken,
-        });
+        }); //CHANGE YOUR API URL && BODY VALUE
         customAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${newAccessToken}`;
 
         token.setToken(ACCESS_TOKEN_KEY, newAccessToken);
