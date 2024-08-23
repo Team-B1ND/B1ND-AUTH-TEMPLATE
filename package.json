@@ -2,6 +2,14 @@
   "name": "asdf",
   "version": "0.1.0",
   "private": true,
+  "files": [
+    "template.json",
+    "src/"
+  ],
+  "keywords": [
+    "create-react-app-template"
+  ],
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
