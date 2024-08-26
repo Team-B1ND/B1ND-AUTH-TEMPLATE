@@ -43,6 +43,7 @@ const folders = [
 folders.forEach((folder) => {
   const folderPath = path.join(projectName, folder);
   fs.mkdirSync(folderPath, { recursive: true });
+  fs.writeFileSync(path.join(folderPath, ".gitkeep"), "", { encoding: "utf8" });
 });
 
 createTokenFile(projectName);
