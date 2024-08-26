@@ -1,9 +1,20 @@
+const fs = require("fs");
+const path = require("path");
+
+function createResponseInterceptorFile(projectName) {
+  const responseInterceptorDir = path.join(projectName, "src/libs/axios");
+
+  if (!fs.existsSync(responseInterceptorDir)) {
+    fs.mkdirSync(responseInterceptorDir, { recursive: true });
+  }
+
+  const responseInterceptorCode = `// responseInterceptor.ts
 import axios, { AxiosError } from "axios";
 import token from "../token/token";
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, REQUEST_TOKEN_KEY } from "../../constants/token.constants";
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, REQUEST_TOKEN_KEY } from "src/constants/token/token.constants";
 import customAxios from "./customAxios";
 import CONFIG from "src/config/config.json";
-
+  
 let isRefreshing = false;
 let refreshSubscribers: ((accessToken: string) => void)[] = [];
 
@@ -29,10 +40,10 @@ const ResponseHandler = async (error: AxiosError) => {
       isRefreshing = true;
 
       try {
-        const { data: newAccessToken } = await axios.post(`${CONFIG.server}/refresh`, {
-          refreshToken: usingAccessToken,
+        const { data: newAccessToken } = await axios.post(\`\${CONFIG.server}/refresh\`, {
+          refreshToken: usingRefreshToken,
         }); //CHANGE YOUR API URL && BODY VALUE
-        customAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${newAccessToken}`;
+        customAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = \`Bearer \${newAccessToken}\`;
 
         token.setToken(ACCESS_TOKEN_KEY, newAccessToken);
 
@@ -41,7 +52,7 @@ const ResponseHandler = async (error: AxiosError) => {
 
         return new Promise((resolve) => {
           addRefeshSubscriber((accessToken: string) => {
-            originalRequest!.headers![REQUEST_TOKEN_KEY] = `Bearer ${accessToken}`;
+            originalRequest!.headers![REQUEST_TOKEN_KEY] = \`Bearer \${accessToken}\`;
             resolve(customAxios(originalRequest!));
           });
         });
@@ -58,3 +69,9 @@ const ResponseHandler = async (error: AxiosError) => {
 };
 
 export default ResponseHandler;
+`;
+
+  fs.writeFileSync(path.join(responseInterceptorDir, "responseInterceptor.ts"), responseInterceptorCode.trim());
+}
+
+module.exports = createResponseInterceptorFile;
