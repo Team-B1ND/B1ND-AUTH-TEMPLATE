@@ -4,13 +4,13 @@ const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-const createTokenFile = require("./token/token");
-const createConfigFile = require("./config/configGenerator");
-const createResponseInterceptorFile = require("./axios/responseInterceptorGenerator");
-const createRequestInterceptorFile = require("./axios/requestInterceptorGenerator");
-const createCustomAxiosFile = require("./axios/customAxiosGenerator");
-const createConstantsFile = require("./constants/constantsGenerator");
-const replaceTsConfig = require("./config/tsconfigGenerator");
+const createTokenFile = require("./bin/token/token");
+const createConfigFile = require("./bin/config/configGenerator");
+const createResponseInterceptorFile = require("./bin/axios/responseInterceptorGenerator");
+const createRequestInterceptorFile = require("./bin/axios/requestInterceptorGenerator");
+const createCustomAxiosFile = require("./bin/axios/customAxiosGenerator");
+const createConstantsFile = require("./bin/constants/constantsGenerator");
+const replaceTsConfig = require("./bin/config/tsconfigGenerator");
 
 const projectName = process.argv[2];
 

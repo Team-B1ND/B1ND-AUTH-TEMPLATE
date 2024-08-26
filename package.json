@@ -1,6 +1,6 @@
 {
   "name": "b1nd-react-app",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
