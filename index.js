@@ -53,5 +53,5 @@ createRequestInterceptorFile(projectName);
 createCustomAxiosFile(projectName);
 replaceTsConfig(projectName);
 
-execSync(`npm install axios js-cookie @types/cookie`, { cwd: projectName, stdio: "inherit" });
+execSync(`npm install axios js-cookie @types/js-cookie`, { cwd: projectName, stdio: "inherit" });
 console.log(`프로젝트 ${projectName}이 성공적으로 생성되었습니다.`);
