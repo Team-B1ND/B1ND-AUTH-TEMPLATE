@@ -21,10 +21,8 @@ if (!projectName) {
 
 console.log(`프로젝트 "${projectName}"를 생성하는 중...`);
 
-// React 프로젝트 생성
 execSync(`npx create-react-app ${projectName} --template typescript`, { stdio: "inherit" });
 
-// 새로운 폴더 구조 생성
 const folders = [
   "src/assets",
   "src/components",
@@ -54,3 +52,6 @@ createResponseInterceptorFile(projectName);
 createRequestInterceptorFile(projectName);
 createCustomAxiosFile(projectName);
 replaceTsConfig(projectName);
+
+execSync(`npm install axios js-cookie @types/cookie`, { cwd: projectName, stdio: "inherit" });
+console.log(`프로젝트 ${projectName}이 성공적으로 생성되었습니다.`);

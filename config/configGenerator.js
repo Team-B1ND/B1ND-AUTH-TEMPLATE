@@ -8,7 +8,7 @@ function createConfigFile(projectName) {
     fs.mkdirSync(configDir, { recursive: true });
   }
 
-  const configCode = `// config.json
+  const configCode = `
 {
     "server": "YOUR_API_BASE_URL"
 }

@@ -11,7 +11,7 @@ function createCustomAxiosFile(projectName) {
 
   const tokenManagementCode = `
   import CONFIG from "src/config/config.json";
-  import axios, { AxiosRequestConfig } from "axios";
+  import axios, { AxiosRequestConfig, AxiosError } from "axios";
   import requestInterceptor from "./requestInterceptor";
   import ResponseHandler from "./responseInterceptor";
   import Token from "../token/token";
@@ -25,14 +25,14 @@ function createCustomAxiosFile(projectName) {
   
   const customAxios = axios.create(axiosRequestConfig);
   
-  dearAxios.interceptors.request.use(requestInterceptor as any, (err) => Promise.reject(err));
+  customAxios.interceptors.request.use(requestInterceptor as any, (err: AxiosError) => Promise.reject(err));
   
-  dearAxios.interceptors.response.use((res) => res, ResponseHandler);
+  customAxios.interceptors.response.use((res) => res, ResponseHandler);
   
   export default customAxios;
   
   export const setAccessToken = (token: string) => {
-    dearAxios.defaults.headers[REQUEST_TOKEN_KEY] = \`Bearer \${token}\`;
+    customAxios.defaults.headers[REQUEST_TOKEN_KEY] = \`Bearer \${token}\`;
   };
 `;
 

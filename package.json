@@ -9,9 +9,14 @@
     "b1nd-react-app": "./index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "b1nd",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Team-B1ND/DODAM_AUTH_TEMPLATE"
+  },
+  "homepage": "https://github.com/Team-B1ND/DODAM_AUTH_TEMPLATE",
+  "description": "대구소프트웨어마이스터고등학교 학생들을 위한 React + Typescript B1ND BoilerPlate입니다.",
   "dependencies": {
     "commander": "^12.1.0",
     "execa": "^9.3.1"

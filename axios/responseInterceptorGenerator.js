@@ -8,7 +8,7 @@ function createResponseInterceptorFile(projectName) {
     fs.mkdirSync(responseInterceptorDir, { recursive: true });
   }
 
-  const responseInterceptorCode = `// responseInterceptor.ts
+  const responseInterceptorCode = `
 import axios, { AxiosError } from "axios";
 import token from "../token/token";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, REQUEST_TOKEN_KEY } from "src/constants/token/token.constants";

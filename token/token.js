@@ -1,37 +1,32 @@
 const fs = require("fs");
 const path = require("path");
 
-// token.ts 파일 생성 함수
 function createTokenFile(projectName) {
   const tokenDir = path.join(projectName, "src/libs/token");
 
-  // libs/token 디렉토리 생성
   if (!fs.existsSync(tokenDir)) {
     fs.mkdirSync(tokenDir, { recursive: true });
   }
 
-  const tokenManagementCode = `// token.ts
+  const tokenManagementCode = `
+import cookie from "js-cookie";
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "src/constants/token/token.constants.ts";
+
 class Token {
-  public getToken(key: string): string | undefined {
-    let matches = document.cookie.match(
-      new RegExp("(?:^|; )" + key.replace(/([\\.$?*|{}()\\[\\]\\\\/\\+^])/g, "\\\\$1") + "=([^;]*)"),
-    );
-    return matches ? decodeURIComponent(matches[1]) : undefined;
+  public getToken(key: typeof ACCESS_TOKEN_KEY | typeof REFESH_TOKEN_KEY): string | undefiend {
+    return cookie.get(key);
   }
-
-  public setToken(key: string, value: string): string {
-    return (document.cookie = \`\${key}=\${value}\`);
+  public setToken(key: typeof ACCESS_TOKEN_KEY | typeof REFRESH_TOKEN_KEY, value: string, options?: { [key: string]: any }): void {
+    cookie.set(key, value, options);
   }
-
-  public clearToken(): string {
-    return (document.cookie = "max-age=0");
+  public removeToken(key: string): void {
+    cookie.remove(key);
   }
 }
 
 export default new Token();
 `;
 
-  // token.ts 파일 생성
   fs.writeFileSync(path.join(tokenDir, "token.ts"), tokenManagementCode.trim());
 }
 
