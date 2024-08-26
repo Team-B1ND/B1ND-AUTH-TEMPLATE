@@ -9,7 +9,7 @@ function createCustomAxiosFile(projectName) {
     fs.mkdirSync(customAxiosDir, { recursive: true });
   }
 
-  const tokenManagementCode = `
+  const customAxiosCode = `
   import CONFIG from "src/config/config.json";
   import axios, { AxiosRequestConfig, AxiosError } from "axios";
   import requestInterceptor from "./requestInterceptor";
@@ -37,7 +37,7 @@ function createCustomAxiosFile(projectName) {
 `;
 
   // token.ts 파일 생성
-  fs.writeFileSync(path.join(customAxiosDir, "customAxios.ts"), tokenManagementCode.trim());
+  fs.writeFileSync(path.join(customAxiosDir, "customAxios.ts"), customAxiosCode.trim());
 }
 
 module.exports = createCustomAxiosFile;
