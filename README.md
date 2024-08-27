@@ -2,6 +2,31 @@
 
 B1ND Front-End팀이 "대구소프트웨어마이스터고등학교의 학생들이 보다 편리하게 개발을 했으면 좋겠다"라는 생각을 가지고 개발한 BoilerPlate입니다.
 
+# Folder Architecture
+├─public
+└─src
+    ├─api
+    ├─assets
+    ├─components
+    ├─config
+      └─config.json
+    ├─constants
+      └─token
+         └─token.constants.ts
+    ├─hooks
+    ├─libs
+      └─axios
+         ├─customAxios.ts
+         ├─requestInterceptor.ts
+         └─responseInterceptor.ts
+      └─token
+         └─token.ts
+    ├─pages
+    ├─queries
+    ├─styles
+    ├─types
+    └─utils
+
 # HOW TO USE?
 
 ### START

@@ -19,7 +19,7 @@ if (!projectName) {
   process.exit(1);
 }
 
-console.log(`프로젝트 "${projectName}"를 생성하는 중...`);
+console.log(`프로젝트 "${projectName}" 생성하는 중...`);
 
 execSync(`npx create-react-app ${projectName} --template typescript`, { stdio: "inherit" });
 
