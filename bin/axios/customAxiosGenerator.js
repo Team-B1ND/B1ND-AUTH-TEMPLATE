@@ -4,7 +4,6 @@ const path = require("path");
 function createCustomAxiosFile(projectName) {
   const customAxiosDir = path.join(projectName, "src/libs/axios");
 
-  // libs/token 디렉토리 생성
   if (!fs.existsSync(customAxiosDir)) {
     fs.mkdirSync(customAxiosDir, { recursive: true });
   }
@@ -36,7 +35,6 @@ export const setAccessToken = (token: string) => {
 };
 `;
 
-  // token.ts 파일 생성
   fs.writeFileSync(path.join(customAxiosDir, "customAxios.ts"), customAxiosCode.trim());
 }
 
