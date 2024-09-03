@@ -1,12 +1,12 @@
 {
   "name": "b1nd-react-app",
-  "version": "1.0.19",
-  "main": "index.js",
+  "version": "1.0.21",
+  "main": "generate-app",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "b1nd-react-app": "./index.js"
+    "b1nd-react-app": "./bin/generate-app.js"
   },
   "keywords": [],
   "author": "b1nd",

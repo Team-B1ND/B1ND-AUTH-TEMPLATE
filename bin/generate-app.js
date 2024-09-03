@@ -43,12 +43,14 @@ async function main() {
     }
 
     console.log("Installing dependencies...");
+    
     execSync("npm install");
-
+    execSync("npm install axios");
+    
     console.log("Removing useless files");
     execSync("npx rimraf ./.git");
 
-    console.log("The installation is done, this is ready to use !");
+    console.log("The installation is done, this is ready to use");
   } catch (error) {
     console.log(error);
   }
