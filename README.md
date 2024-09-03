@@ -27,13 +27,16 @@ B1ND Front-End팀이 "대구소프트웨어마이스터고등학교의 학생들
     ├─styles
     ├─types
     └─utils
+├─webpack.config.js
+├─webpack.development.js
+└─webpack.production.js
 ```
 # HOW TO USE?
 
 ### START
 
-`npx b1nd-react-app [projectname]`으로 시작하실 수 있습니다. `ex) b1nd-react-app my-app`
-`프로젝트 [projectname]이 성공적으로 생성되었습니다.`라는 console과 합께 프로젝트 생성이 완료 됩니다.
+`npx b1nd-react-app [projectname]`으로 시작하실 수 있습니다. 
+`ex) b1nd-react-app [projectname] has been created successfully.`라는 console과 합께 프로젝트 생성이 완료 됩니다.
 
 ### USER EDITING POINT
 
