@@ -54,3 +54,16 @@ B1ND Front-End팀이 "대구소프트웨어마이스터고등학교의 학생들
 3. 서버와의 통신은 `react-query`를 사용하시면 더욱 더 편리하게 사용 가능합니다.
 4. 번들러는 `webpack`을 사용하였습니다.
 5. 추후 `globalStyles`와 `layout`도 추가 할 예정입니다.
+   
+## install
+
+
+> npx b1nd-create-app {APP_NAME}
+
+<video src="https://github.com/user-attachments/assets/6739ea73-3177-4073-8147-c6b76cb4dc15" alt="예시 화면" width="700"/>
+
+
+
+
+
+
