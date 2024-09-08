@@ -4,11 +4,13 @@
 
 const { execSync } = require("child_process");
 const path = require("path");
+const chalk = require("chalk");
 const fs = require("fs");
+
 if (process.argv.length < 3) {
-  console.log("You have to provide a name to your app.");
+  console.log(chalk.red("You have to provide a name to your app."));
   console.log("For example :");
-  console.log("    npx create-my-boilerplate my-app");
+  console.log(chalk.green("    npx create-my-boilerplate my-app"));
   process.exit(1);
 }
 
@@ -23,11 +25,9 @@ if (projectName !== ".") {
   } catch (err) {
     if (err.code === "EEXIST") {
       console.log(projectName);
-      console.log(
-        `The file ${projectName} already exist in the current directory, please give it another name.`
-      );
+      console.log(chalk.red(`The file ${projectName} already exists in the current directory, please give it another name.`));
     } else {
-      console.log(error);
+      console.log(chalk.red(error));
     }
     process.exit(1);
   }
@@ -35,25 +35,24 @@ if (projectName !== ".") {
 
 async function main() {
   try {
-    console.log("Downloading files...");
+    console.log(chalk.blue("Downloading files..."));
     execSync(`git clone --depth 1 ${GIT_REPO} ${projectPath}`);
 
     if (projectName !== ".") {
       process.chdir(projectPath);
     }
 
-    console.log("Installing dependencies...");
+    console.log(chalk.blue("Installing dependencies..."));
     
     execSync("npm install");
-    execSync("npm install axios");
 
-    console.log("Removing useless files");
+    console.log(chalk.blue("Removing useless files"));
     execSync("npx rimraf ./.git");
 
 
-    console.log(`b1nd-react-app ${projectName} has been created successfully.`);
+    console.log(chalk.cyan(`b1nd-react-app ${projectName} has been created successfully.`));
   } catch (error) {
-    console.log(error);
+    console.log(chalk.red(error));
   }
 }
 
