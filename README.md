@@ -46,6 +46,7 @@ B1ND Front-End팀이 "대구소프트웨어마이스터고등학교의 학생들
 3. `src/libs/requestInterceptor.ts`의 12번쨰 줄 login url을 자신의 login url로 변경해주세요.
 
 # ETC
+* 토큰을 사용하는 과정이 다르거나 필요없다면 폴더를 삭제 하시면 됩니다 
 
 1. 토큰의 종류는 `accessToken`과 `refreshToken`으로 구분되며, 각각 Cookie에 `accessToken`, `refreshToken`으로 저장됩니다.
 2. 토큰의 저장은 `token.setToken({TOKEN_CONSTANTS}, [value]);`로 하시면 됩니다. `ex) token.setToken(ACCESS_TOKEN_KEY, res.data.data.accessToken);`

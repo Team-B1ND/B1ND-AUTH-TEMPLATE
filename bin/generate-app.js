@@ -24,7 +24,7 @@ if (projectName !== ".") {
     if (err.code === "EEXIST") {
       console.log(projectName);
       console.log(
-        `The file ${projectName} already exist in the current directory, please give it another name.`
+        `%c The file ${projectName} already exist in the current directory, please give it another name.` , "color:red"
       );
     } else {
       console.log(error);
@@ -51,7 +51,7 @@ async function main() {
     execSync("npx rimraf ./.git");
 
 
-    console.log(`b1nd-react-app ${projectName} has been created successfully.`);
+    console.log(`%c b1nd-react-app ${projectName} has been created successfully.`, "color:#87ceeb");
   } catch (error) {
     console.log(error);
   }
