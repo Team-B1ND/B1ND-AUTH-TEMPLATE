@@ -60,7 +60,6 @@ B1ND Front-End팀이 "대구소프트웨어마이스터고등학교의 학생들
 
 > npx b1nd-react-app {APP_NAME}
 
-<video src="https://github.com/user-attachments/assets/6739ea73-3177-4073-8147-c6b76cb4dc15" alt="예시 화면" width="700"/>
 
 
 
