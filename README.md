@@ -58,7 +58,7 @@ B1ND Front-End팀이 "대구소프트웨어마이스터고등학교의 학생들
 ## install
 
 
-> npx b1nd-react-app {APP_NAME}
+> npx b1nd-react-app [projectName]
 
 
 
