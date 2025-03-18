@@ -15,9 +15,19 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 
-const projectName = process.argv[2];
 const currentPath = process.cwd();
-const projectPath = path.join(currentPath, projectName);
+let projectName = process.argv[2] || path.basename(process.cwd());
+let projectPath = path.join(currentPath, projectName);
+
+const sanitizedProjectPath = `"${projectPath}"`;
+
+if (projectName === '.') {
+    console.log(chalk.blue(`📥 Creating project in the current directory: ${currentPath}...`));
+    projectPath = currentPath; // 현재 디렉토리에서 프로젝트 생성
+} else if (fs.existsSync(projectPath)) {
+    console.log(chalk.red(`❌ The folder '${projectName}' already exists. Please choose a different name.`));
+    process.exit(1);
+}
 
 /**
  * GitHub template repository
@@ -25,7 +35,7 @@ const projectPath = path.join(currentPath, projectName);
 const TEMPLATE_REPO = "https://github.com/Team-B1ND/b1nd-BoilerPlate";
 
 async function askUserOptions() {
-  return inquirer.prompt([
+   const answers = await inquirer.prompt([
     {
       type: "list",
       name: "bundler",
@@ -46,41 +56,46 @@ async function askUserOptions() {
       choices: ["npm", "yarn", "pnpm"],
     },
   ]);
+  return answers;
 }
 
 async function main() {
   try {
     const { bundler, language, packageManager } = await askUserOptions();
     const normalizedBundler = bundler.includes("Webpack") ? "webpack" : "vite";
-    const templateFolder = `${normalizedBundler}-${language.toLowerCase()}`;
+    const templateFolder = `template/${normalizedBundler}-${language.toLowerCase()}`;
 
     console.log(chalk.blue(`📥 Creating project: ${projectName}...`));
 
     /**
      * Create project folder
      */
-    if (fs.existsSync(projectPath)) {
+    if (projectName !== '.' && fs.existsSync(projectPath)) {
       console.log(chalk.red(`❌ The folder '${projectName}' already exists. Please choose a different name.`));
       process.exit(1);
     }
-    fs.mkdirSync(projectPath);
+    if (projectName !== '.') {
+      fs.mkdirSync(projectPath);
+    }
 
     console.log(chalk.blue("📂 Downloading template..."));
 
     /** 
-     * Download specific folder using sparse-checkout
-     * */ 
-    execSync(`git clone --depth 1 --filter=blob:none --sparse ${TEMPLATE_REPO} ${projectPath}`, { stdio: "inherit" });
-
-    process.chdir(projectPath);
-    execSync(`git sparse-checkout set ${templateFolder}`, { stdio: "inherit" });
-    execSync("git pull origin main", { stdio: "inherit" });
-
-    /**
-     * Move template contents to the root directory
+     * Download specific folder using sparse-checkout only if not in the current directory
      */
-    execSync(`mv ${templateFolder}/* ./`, { stdio: "inherit" });
-    execSync(`npx rimraf ${templateFolder}`, { stdio: "inherit" });
+
+      execSync(`git clone --depth 1 --filter=blob:none --sparse ${TEMPLATE_REPO} ${sanitizedProjectPath}`, { stdio: "inherit" });
+      process.chdir(projectPath);
+      execSync(`git sparse-checkout set ${templateFolder}`, { stdio: "inherit" });
+      execSync("git pull origin main", { stdio: "inherit" });
+  
+      /**
+       * Move template contents to the root directory
+       * and delete the 'template' folder
+       */
+      execSync(`mv ${templateFolder}/* ./`, { stdio: "inherit" });
+      execSync(`rm -rf template`, { stdio: "inherit" });
+
 
     console.log(chalk.blue(`📦 Installing dependencies using ${packageManager}...`));
     if (packageManager === "npm") {
