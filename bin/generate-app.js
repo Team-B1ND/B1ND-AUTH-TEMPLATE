@@ -23,7 +23,7 @@ const sanitizedProjectPath = `"${projectPath}"`;
 
 if (projectName === '.') {
     console.log(chalk.blue(`📥 Creating project in the current directory: ${currentPath}...`));
-    projectPath = currentPath; // 현재 디렉토리에서 프로젝트 생성
+    projectPath = currentPath;
 } else if (fs.existsSync(projectPath)) {
     console.log(chalk.red(`❌ The folder '${projectName}' already exists. Please choose a different name.`));
     process.exit(1);
@@ -107,7 +107,7 @@ async function main() {
     }
 
     console.log(chalk.green(`🎉 Project '${projectName}' has been successfully created!`));
-    console.log(chalk.green(`🚀 To start: cd ${projectName} && ${packageManager} dev`));
+    console.log(chalk.green(`🚀 To start: ${packageManager} dev`));
   } catch (error) {
     console.log(chalk.red("❌ Error occurred:", error));
   }
