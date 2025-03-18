@@ -1,6 +1,6 @@
 {
   "name": "b1nd-react-app",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "main": "generate-app",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

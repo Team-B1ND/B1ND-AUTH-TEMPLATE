@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 "use strict";
 
@@ -6,10 +6,11 @@ const { execSync } = require("child_process");
 const path = require("path");
 const chalk = require("chalk");
 const fs = require("fs");
+const inquirer = require("inquirer");
 
 if (process.argv.length < 3) {
-  console.log(chalk.red("You have to provide a name to your app."));
-  console.log("For example :");
+  console.log(chalk.red("You must specify a project name."));
+  console.log("Example:");
   console.log(chalk.green("    npx create-my-boilerplate my-app"));
   process.exit(1);
 }
@@ -17,42 +18,83 @@ if (process.argv.length < 3) {
 const projectName = process.argv[2];
 const currentPath = process.cwd();
 const projectPath = path.join(currentPath, projectName);
-const GIT_REPO = "https://github.com/Team-B1ND/b1nd-BoilerPlate";
 
-if (projectName !== ".") {
-  try {
-    fs.mkdirSync(projectPath);
-  } catch (err) {
-    if (err.code === "EEXIST") {
-      console.log(projectName);
-      console.log(chalk.red(`The file ${projectName} already exists in the current directory, please give it another name.`));
-    } else {
-      console.log(chalk.red(error));
-    }
-    process.exit(1);
-  }
+/**
+ * GitHub template repository
+ */
+const TEMPLATE_REPO = "https://github.com/Team-B1ND/b1nd-BoilerPlate";
+
+async function askUserOptions() {
+  return inquirer.prompt([
+    {
+      type: "list",
+      name: "bundler",
+      message: "Which bundler do you want to use?",
+      choices: ["Webpack (Recommended)", "Vite"],
+      default: "Webpack (Recommended)",
+    },
+    {
+      type: "list",
+      name: "language",
+      message: "Which language do you want to use?",
+      choices: ["TypeScript", "JavaScript"],
+    },
+    {
+      type: "list",
+      name: "packageManager",
+      message: "Which package manager do you want to use?",
+      choices: ["npm", "yarn", "pnpm"],
+    },
+  ]);
 }
 
 async function main() {
   try {
-    console.log(chalk.blue("Downloading files..."));
-    execSync(`git clone --depth 1 ${GIT_REPO} ${projectPath}`);
+    const { bundler, language, packageManager } = await askUserOptions();
+    const normalizedBundler = bundler.includes("Webpack") ? "webpack" : "vite";
+    const templateFolder = `${normalizedBundler}-${language.toLowerCase()}`;
 
-    if (projectName !== ".") {
-      process.chdir(projectPath);
+    console.log(chalk.blue(`📥 Creating project: ${projectName}...`));
+
+    /**
+     * Create project folder
+     */
+    if (fs.existsSync(projectPath)) {
+      console.log(chalk.red(`❌ The folder '${projectName}' already exists. Please choose a different name.`));
+      process.exit(1);
+    }
+    fs.mkdirSync(projectPath);
+
+    console.log(chalk.blue("📂 Downloading template..."));
+
+    /** 
+     * Download specific folder using sparse-checkout
+     * */ 
+    execSync(`git clone --depth 1 --filter=blob:none --sparse ${TEMPLATE_REPO} ${projectPath}`, { stdio: "inherit" });
+
+    process.chdir(projectPath);
+    execSync(`git sparse-checkout set ${templateFolder}`, { stdio: "inherit" });
+    execSync("git pull origin main", { stdio: "inherit" });
+
+    /**
+     * Move template contents to the root directory
+     */
+    execSync(`mv ${templateFolder}/* ./`, { stdio: "inherit" });
+    execSync(`npx rimraf ${templateFolder}`, { stdio: "inherit" });
+
+    console.log(chalk.blue(`📦 Installing dependencies using ${packageManager}...`));
+    if (packageManager === "npm") {
+      execSync("npm install", { stdio: "inherit" });
+    } else if (packageManager === "yarn") {
+      execSync("yarn install", { stdio: "inherit" });
+    } else if (packageManager === "pnpm") {
+      execSync("pnpm install", { stdio: "inherit" });
     }
 
-    console.log(chalk.blue("Installing dependencies..."));
-    
-    execSync("npm install");
-
-    console.log(chalk.blue("Removing useless files"));
-    execSync("npx rimraf ./.git");
-
-
-    console.log(chalk.cyan(`b1nd-react-app ${projectName} has been created successfully.`));
+    console.log(chalk.green(`🎉 Project '${projectName}' has been successfully created!`));
+    console.log(chalk.green(`🚀 To start: cd ${projectName} && ${packageManager} dev`));
   } catch (error) {
-    console.log(chalk.red(error));
+    console.log(chalk.red("❌ Error occurred:", error));
   }
 }
 
