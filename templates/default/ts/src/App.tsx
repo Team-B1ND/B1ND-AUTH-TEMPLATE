@@ -5,20 +5,20 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="App-background">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          B1ND AUTH-TEMPLATE
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          B1NDGithub
         </a>
-      </header>
+      </div>
     </div>
   );
 }
