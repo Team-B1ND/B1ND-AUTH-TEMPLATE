@@ -85,7 +85,7 @@ async function run() {
   /**
    * Prompt the user to choose project settings
    */
-  const { bundler, language, packageManagerChoice } = await prompts([
+  const { bundler, language, packageManagerChoice, useAxios } = await prompts([
     {
       type: "select",
       name: "bundler",
@@ -118,14 +118,26 @@ async function run() {
         { title: "bun", value: "bun" },
       ],
       initial: 0, // Default is npm
-    },
+    },    {
+        type: "select",
+        name: "useAxios",
+        message: "Do you want to include Axios?",
+        choices: [
+          { title: "Yes", value: true },
+          { title: "No", value: false },
+        ],
+        initial: 0,
+      },
   ]);
 
   console.log(`📂 Creating project in ${resolvedProjectPath}...`);
 
   try {
     // Set template path based on selected bundler
-    let templatePath = "";
+    let templatePath = resolve(__dirname, "templates", bundler, language);
+    if (useAxios) {
+      templatePath = resolve(__dirname, "templates", `${bundler}-axios`, language);
+    }
 
     /**
      * Set the template path according to the selected bundler
