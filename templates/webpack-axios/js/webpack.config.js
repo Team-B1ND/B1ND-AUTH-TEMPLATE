@@ -3,9 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const svgToMiniDataURI = require("mini-svg-data-uri");
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: "./src/index.js",
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx"],
+        extensions: [".js", ".jsx"],
         fallback: {
             abc: false, 
             crypto: require.resolve("crypto-browserify"), 
@@ -22,10 +22,10 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(tsx|ts|js|jsx)$/,
+                test: /\.(js|jsx)$/,
                 loader: "esbuild-loader",
                 options: {
-                    loader: "tsx",
+                    loader: "jsx",
                     target: "es2016",
                 },
             },
