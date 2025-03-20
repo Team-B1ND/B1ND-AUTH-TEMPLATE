@@ -7,7 +7,7 @@
   },
   "type": "commonjs",
   "bin": {
-    "b1nd-react-app": "./bin/generate-app.js"
+    "b1nd-react-app": "./index.ts"
   },
   "keywords": [],
   "author": "b1nd",

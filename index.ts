@@ -10,7 +10,7 @@ import prompts from "prompts";
 
 const program = new Command();
 
-// 프로젝트 이름을 명령어 인자로 받기
+// Project name taken as command argument
 let projectPath: string = "";
 
 const handleExit = () => process.exit(0);
@@ -21,28 +21,18 @@ program
   .name("b1nd-react-app")
   .description("Create a new project with B1ND Boilerplate")
   .argument("<directory>", "Project directory")
-  .option("--use-npm", "Use npm as package manager")
-  .option("--use-yarn", "Use yarn as package manager")
-  .option("--use-pnpm", "Use pnpm as package manager")
-  .option("--typescript", "Use TypeScript")
-  .option("--javascript", "Use JavaScript")
-  .option("--bundler <bundler>", "Choose bundler: vite or webpack", "webpack")
+  .option("--bundler <bundler>", "Choose bundler: default, vite or webpack", "default")
   .action((name) => {
     projectPath = name;
   })
   .parse(process.argv);
 
 const opts = program.opts();
-const packageManager = opts.useNpm
-  ? "npm"
-  : opts.useYarn
-  ? "yarn"
-  : opts.usePnpm
-  ? "pnpm"
-  : getPkgManager();
 
 /**
- * 디렉터리 복사 함수
+ * Function to copy a directory from source to destination
+ * @param src - Path to the source directory
+ * @param dest - Path to the destination directory
  */
 function copyDir(src: string, dest: string) {
   if (!existsSync(dest)) mkdirSync(dest, { recursive: true });
@@ -66,45 +56,89 @@ async function run() {
   const resolvedProjectPath = resolve(process.cwd(), projectPath);
   const projectName = basename(resolvedProjectPath);
 
-  // 프로젝트 이름 유효성 검사
+  /**
+   * Validate project name
+   * @param projectName - Name of the project
+   */
   if (!validateProjectName(projectName)) {
     console.log("❌ Invalid project name.");
     process.exit(1);
   }
 
-  // 디렉터리 생성
+  /**
+   * Check if the directory exists and is not empty
+   */
+  if (existsSync(resolvedProjectPath) && !isFolderEmpty(resolvedProjectPath)) {
+    console.log("❌ The project directory is not empty.");
+    process.exit(1);
+  }
+
+  /**
+   * Create the directory if it doesn't exist
+   * If the directory exists, proceed to set up the project
+   */
   if (!existsSync(resolvedProjectPath)) {
     console.log(`Creating directory: ${resolvedProjectPath}`);
     mkdirSync(resolvedProjectPath, { recursive: true });
   }
 
-  const { bundler, language } = await prompts([
+  /**
+   * Prompt the user to choose project settings
+   */
+  const { bundler, language, packageManagerChoice } = await prompts([
     {
       type: "select",
       name: "bundler",
       message: "Which bundler do you want to use?",
       choices: [
+        { title: "Default (No bundler)", value: "default" },
         { title: "Webpack (Recommended)", value: "webpack" },
         { title: "Vite", value: "vite" },
       ],
-      initial: opts.bundler === "vite" ? 1 : 0,
+      initial: opts.bundler === "default" ? 0 : opts.bundler === "vite" ? 1 : 2,
     },
     {
       type: "select",
       name: "language",
       message: "Which language do you want to use?",
       choices: [
-        { title: "TypeScript", value: "typescript" },
-        { title: "JavaScript", value: "javascript" },
+        { title: "TypeScript", value: "ts" },
+        { title: "JavaScript", value: "js" },
       ],
-      initial: opts.typescript ? 0 : 1,
+      initial: 0, // Default is TypeScript
+    },
+    {
+      type: "select",
+      name: "packageManagerChoice",
+      message: "Which package manager would you like to use?",
+      choices: [
+        { title: "npm", value: "npm" },
+        { title: "yarn", value: "yarn" },
+        { title: "pnpm", value: "pnpm" },
+        { title: "bun", value: "bun" },
+      ],
+      initial: 0, // Default is npm
     },
   ]);
 
   console.log(`📂 Creating project in ${resolvedProjectPath}...`);
 
   try {
-    const templatePath = resolve(__dirname, "templates", `${bundler}-${language}`);
+    // Set template path based on selected bundler
+    let templatePath = "";
+
+    /**
+     * Set the template path according to the selected bundler
+     */
+    if (bundler === "default") {
+      templatePath = resolve(__dirname, "templates", "default", language);
+    } else if (bundler === "webpack" || bundler === "vite") {
+        templatePath = resolve(__dirname, "templates", bundler, language);
+    } else {
+      console.log("❌ Unsupported bundler");
+      process.exit(1);
+    }
+
     if (!existsSync(templatePath)) {
       console.log(`❌ Template not found: ${templatePath}`);
       process.exit(1);
@@ -112,6 +146,12 @@ async function run() {
 
     copyDir(templatePath, resolvedProjectPath);
 
+    /**
+     * Automatically detect the package manager if not chosen by the user
+     * Use the selected package manager if provided, otherwise default to detected package manager
+     */
+    const packageManager = packageManagerChoice || getPkgManager();
+    
     console.log(`📦 Installing dependencies using ${packageManager}...`);
     execSync(`${packageManager} install`, { stdio: "inherit", cwd: resolvedProjectPath });
 
