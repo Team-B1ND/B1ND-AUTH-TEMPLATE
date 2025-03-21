@@ -1,0 +1,16 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalEnv": ["NEXT_CI_RUNNER"],
+    "daemon": false,
+    "tasks": {
+      "build": {
+        "dependsOn": ["^build"],
+        "outputs": ["dist/**"]
+    },
+      "dev": {
+        "dependsOn": ["^dev"],
+        "outputs": ["dist/**"]
+      }
+    }
+  }
+  

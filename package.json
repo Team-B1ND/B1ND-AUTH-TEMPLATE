@@ -3,9 +3,9 @@
   "version": "1.2.1",
   "main": "generate-app",
   "scripts": {
-    "build": "turbo run build",
-    "prepublishOnly": "pnpm build"
-
+    "release": "ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
+    "prepublishOnly": "turbo run build",
+    "build": "pnpm release"
   },
   "type": "commonjs",
   "bin": {
@@ -14,7 +14,7 @@
   "files": [
     "dist"
   ],
-  "keywords": [    
+  "keywords": [
     "react"
   ],
   "author": "b1nd",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@types/node": "20.14.2",
     "@types/prompts": "^2.4.9",
+    "@vercel/ncc": "^0.38.3",
     "chalk": "^4.1.2",
     "child_process": "^1.0.2",
     "commander": "^12.1.0",
@@ -37,7 +38,9 @@
     "path": "^0.12.7",
     "picocolors": "^1.1.1",
     "prompts": "^2.4.2",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "turbo": "^2.4.4",
+    "typescript": "^5.8.2"
   },
   "engines": {
     "node": ">=18.18.0"
