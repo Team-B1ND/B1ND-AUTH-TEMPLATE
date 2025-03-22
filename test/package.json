@@ -1,9 +1,0 @@
-{
-  "name": "test",
-  "version": "1.0.0",
-  "description": "npx b1nd-react-app test folder",
-  "scripts": {
-    "test": "npx ts-node ../index.ts test1"
-  },
-  "author": ""
-}

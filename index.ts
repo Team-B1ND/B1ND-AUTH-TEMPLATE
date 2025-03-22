@@ -4,7 +4,7 @@ import { execSync } from "child_process";
 import { existsSync, mkdirSync, readdirSync, copyFileSync, lstatSync } from "fs";
 import { basename, join, resolve } from "path";
 import { getPkgManager } from "./helpers/get-pkg-manager";
-import { isFolderEmpty } from "./helpers/is-folder-empty";
+import { installDependencies } from "./helpers/pkg-manager-dependencies";
 import { validateProjectName } from "./helpers/validate-project-name";
 import prompts from "prompts";
 
@@ -20,10 +20,10 @@ process.on("SIGTERM", handleExit);
 program
   .name("b1nd-react-app")
   .description("Create a new project with B1ND Boilerplate")
-  .argument("<directory>", "Project directory")
+  .argument("[directory]", "Project directory (default: current directory)", ".")
   .option("--bundler <bundler>", "Choose bundler: default, vite or webpack", "default")
   .action((name) => {
-    projectPath = name;
+    projectPath = name || "."; 
   })
   .parse(process.argv);
 
@@ -68,9 +68,9 @@ async function run() {
   /**
    * Check if the directory exists and is not empty
    */
-  if (existsSync(resolvedProjectPath) && !isFolderEmpty(resolvedProjectPath)) {
-    console.log("❌ The project directory is not empty.");
-    process.exit(1);
+  if (!existsSync(resolvedProjectPath)) {
+    console.log(`📂 Creating directory: ${resolvedProjectPath}`);
+    mkdirSync(resolvedProjectPath, { recursive: true });
   }
 
   /**
@@ -163,12 +163,12 @@ async function run() {
      * Use the selected package manager if provided, otherwise default to detected package manager
      */
     const packageManager = packageManagerChoice || getPkgManager();
+    installDependencies(packageManager, resolvedProjectPath);
     
     console.log(`📦 Installing dependencies using ${packageManager}...`);
     execSync(`${packageManager} install`, { stdio: "inherit", cwd: resolvedProjectPath });
 
     console.log(`🎉 Project '${projectName}' is ready! 🚀`);
-    console.log(`👉 cd ${projectName}`);
     console.log(`👉 ${packageManager} dev`);
   } catch (error) {
     console.log("❌ Error occurred:", error);

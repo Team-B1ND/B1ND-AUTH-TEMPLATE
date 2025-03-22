@@ -1,11 +1,12 @@
 {
   "name": "b1nd-react-app",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "main": "generate-app",
 "scripts": {
   "release": "ncc build ./index.ts -o ./dist/ --minify --no-cache",
   "prepublishOnly": "turbo run build",
-  "build": "pnpm run release && node copy-files.js && ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register"
+  "build": "pnpm run release && node copy-files.js && ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
+  "test": "cd ./test && npx ts-node ../index.ts test1"
 },
   "type": "commonjs",
   "bin": {
