@@ -26,9 +26,6 @@ B1ND AUTH TEMPLATE는 인증 관련 기능을 빠르게 구현할 수 있는 템
     ├─styles            # CSS/SCSS 파일들
     ├─types             # 타입 정의
     └─utils             # 유틸리티 함수들
-├─webpack.config.js    # Webpack 기본 설정
-├─webpack.development.js # 개발 환경 Webpack 설정
-└─webpack.production.js # 배포 환경 Webpack 설정
 
 ```
 
