@@ -1,15 +1,24 @@
 {
   "name": "b1nd-react-app",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "main": "generate-app",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "release": "ncc build ./index.ts -o ./dist/ --minify --no-cache",
+  "prepublishOnly": "turbo run build",
+  "build": "pnpm run release && node copy-files.js && ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register"
+},
   "type": "commonjs",
   "bin": {
-    "b1nd-react-app": "./bin/generate-app.js"
+    "b1nd-react-app": "./dist/index.js"
   },
-  "keywords": [],
+  "files": [
+    "dist",
+    ".gitignore",
+    ".gitkeep"
+  ],
+  "keywords": [
+    "react"
+  ],
   "author": "b1nd",
   "license": "MIT",
   "repository": {
@@ -18,11 +27,28 @@
   },
   "homepage": "https://github.com/Team-B1ND/DODAM_AUTH_TEMPLATE",
   "description": "React + Typescript BoilerPlate for DGSW Students made by B1ND",
-  "dependencies": {
+  "devDependencies": {
+    "@types/node": "20.14.2",
+    "@types/prompts": "^2.4.9",
+    "@vercel/ncc": "^0.38.3",
     "chalk": "^4.1.2",
+    "child_process": "^1.0.2",
     "commander": "^12.1.0",
     "execa": "^9.3.1",
+    "fs": "0.0.1-security",
     "inquirer": "^7.3.3",
-    "rimraf": "^6.0.1"
+    "path": "^0.12.7",
+    "picocolors": "^1.1.1",
+    "prompts": "^2.4.2",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.4.4",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "packageManager": "pnpm@9.1.1",
+  "dependencies": {
+    "fs-extra": "^11.3.0"
   }
 }
