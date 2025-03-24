@@ -11,7 +11,7 @@ jobs:
       - name: Set Labels Based on Issue Content
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.USER_TOKEN }}
           script: |
             const issueBody = github.context.payload.issue.body;
 
@@ -26,7 +26,8 @@ jobs:
               "Build (Turbopack)": "area: turbopack",
               "TypeScript": "area: typescript",
               "Webpack": "area: webpack",
-              "Documentation": "area: docs"
+              "Documentation": "area: docs",
+              "Stale": "stale"  
             };
 
             
