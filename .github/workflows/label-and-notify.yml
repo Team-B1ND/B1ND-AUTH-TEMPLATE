@@ -1,0 +1,75 @@
+name: Label and Notify
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Labels Based on Issue Content
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueBody = context.payload.issue.body;
+
+            const labelMap = {
+              "Not sure": "area: unknown",
+              "Authentication (After)": "area: authentication",
+              "Connection": "area: connection",
+              "UI Loading and Streaming": "area: ui-streaming",
+              "Markdown (MDX)": "area: markdown",
+              "React functionality": "area: react",
+              "Testing environment": "area: testing",
+              "Build (Turbopack)": "area: turbopack",
+              "TypeScript": "area: typescript",
+              "Webpack": "area: webpack",
+              "Documentation": "area: docs"
+            };
+
+            
+            const labelsToAdd = Object.entries(labelMap)
+              .filter(([key]) => issueBody.includes(key))
+              .map(([, label]) => label);
+
+            if (labelsToAdd.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: labelsToAdd
+              });
+            }
+
+  notify-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl -X POST "$DISCORD_WEBHOOK" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "username": "GitHub Bot",
+            "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "content": "🚨 **New Issue Created** 🚨",
+            "embeds": [{
+              "title": "${{ github.event.issue.title }}",
+              "url": "${{ github.event.issue.html_url }}",
+              "description": "A new issue has been opened in the repository.",
+              "color": 5814783,
+              "fields": [
+                {
+                  "name": "Author",
+                  "value": "${{ github.event.issue.user.login }}"
+                },
+                {
+                  "name": "Labels",
+                  "value": "${{ join(github.event.issue.labels.*.name, ', ') }}"
+                }
+              ]
+            }]
+          }'

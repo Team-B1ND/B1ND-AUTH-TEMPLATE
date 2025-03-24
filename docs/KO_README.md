@@ -108,4 +108,4 @@ B1ND AUTH TEMPLATE 프로젝트에 대한 기여는 환영하며 매우 감사�
 
 # 문서
 
-- [테스트 문서](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/test/README.md)
+- [테스트 문서](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/docs/testing_ko.md)

@@ -112,4 +112,4 @@ We look forward to your contributions!
 [한국어 DOCS](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/docs/KO_README.md)
 
 
-- [Test Documentation](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/test/README.md)
+- [Test Documentation](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/docs/testing.md)
