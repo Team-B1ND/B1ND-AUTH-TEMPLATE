@@ -13,7 +13,7 @@ body:
         
         🆘 If you need help with your project, please start a discussion in the ["Help"](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/categories/help) section.
         
-        --- 
+        
 
         ## 한국어 버전
 
@@ -49,7 +49,7 @@ body:
         Describe the steps to reproduce the issue in detail.  
         If you use code blocks, ensure [syntax highlighting](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks#syntax-highlighting) is correct.  
         
-        ---
+
         
         ## 한국어 버전
 
@@ -70,7 +70,7 @@ body:
         
         **Failure to provide complete information may result in the issue being closed.**
         
-        ---
+
         
         ## 한국어 버전
 
@@ -99,7 +99,7 @@ body:
         - 'Webpack'
         - 'Documentation'
         
-        ---
+
         
         ## 한국어 버전
 
@@ -126,7 +126,7 @@ body:
         - What environment are you deploying to (Docker, AWS, etc.)?  
         - Is the issue specific to certain browsers or platforms?  
         
-        ---
+        
         
         ## 한국어 버전
 
