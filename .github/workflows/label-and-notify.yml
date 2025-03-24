@@ -11,7 +11,7 @@ jobs:
       - name: Set Labels Based on Issue Content
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.USER_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issueBody = github.context.payload.issue.body;
 
@@ -27,14 +27,18 @@ jobs:
               "TypeScript": "area: typescript",
               "Webpack": "area: webpack",
               "Documentation": "area: docs",
-              "Stale": "stale"  
+              "Stale": "stale"  # Always add "stale" label
             };
 
             
-            const labelsToAdd = Object.entries(labelMap)
-              .filter(([key]) => issueBody.includes(key))
-              .map(([, label]) => label);
+            const labelsToAdd = ['stale'];
 
+            
+            Object.entries(labelMap)
+              .filter(([key]) => issueBody.includes(key))
+              .forEach(([, label]) => labelsToAdd.push(label));
+
+            
             if (labelsToAdd.length > 0) {
               await github.rest.issues.addLabels({
                 owner: github.context.repo.owner,
@@ -56,7 +60,7 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
             "username": "GitHub Bot",
-            "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "avatar_url": "https:
             "content": "🚨 **New Issue Created** 🚨",
             "embeds": [{
               "title": "${{ github.event.issue.title }}",
