@@ -1,0 +1,38 @@
+name: Notify Discord
+
+on:
+  workflow_run:
+    workflows: ["Label Issue"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  actions: read
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl -X POST "$DISCORD_WEBHOOK" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "username": "GitHub Bot",
+            "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "content": "🚨 **New Issue Created** 🚨",
+            "embeds": [{
+              "title": "${{ github.event.workflow_run.head_commit.message }}",
+              "url": "https://github.com/${{ github.repository }}/issues",
+              "description": "A new issue has been opened in the repository.",
+              "color": 5814783,
+              "fields": [
+                {
+                  "name": "Author",
+                  "value": "${{ github.event.workflow_run.actor }}"
+                }
+              ]
+            }]
+          }'
