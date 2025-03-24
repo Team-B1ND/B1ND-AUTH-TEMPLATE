@@ -12,18 +12,7 @@ body:
         ❗ Before opening a new issue, please search the [existing issues](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/issues) and upvote 👍 any related issues. This helps us resolve issues faster.  
         
         🆘 If you need help with your project, please start a discussion in the ["Help"](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/categories/help) section.
-        
-        
 
-        ## 한국어 버전
-
-        📝 기능 요청은 [아이디어](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/categories/ideas) 섹션에서 논의를 시작해 주세요.
-        
-        📚 문서 개선 요청은 [아이디어](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/categories/ideas) 섹션에서 논의를 시작해 주세요.
-        
-        ❗ 새로운 이슈를 열기 전에 [기존 이슈](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/issues)를 검색하고 관련 이슈에 👍를 눌러 주세요. 이렇게 하면 이슈를 더 빠르게 해결할 수 있습니다. 
-        
-        🆘 프로젝트에 도움이 필요하면 ["도움"](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/categories/help) 섹션에서 논의를 시작해 주세요.
   - type: input
     attributes:
       label: Link to reproduction code
@@ -31,57 +20,38 @@ body:
         Provide a minimal reproduction that clearly demonstrates the issue.  
         
         **Failure to provide a valid reproduction link may result in the issue being closed.**
-        
-        ---
-        
-        ## 한국어 버전
-
-        문제를 명확히 보여줄 수 있는 최소한의 재현 링크를 제공해 주세요.
-        
-        **유효한 재현 링크를 제공하지 않으면 이슈가 닫힐 수 있습니다.**
       placeholder: 'https://github.com/user/my-minimal-b1nd-issue-reproduction'
     validations:
       required: false
+
   - type: textarea
     attributes:
       label: Steps to reproduce
       description: |
         Describe the steps to reproduce the issue in detail.  
+        
         If you use code blocks, ensure [syntax highlighting](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks#syntax-highlighting) is correct.  
-        
-
-        
-        ## 한국어 버전
-
-        문제를 재현하는 방법을 자세히 설명해 주세요.  
-        코드 블록을 사용하는 경우 [문법 하이라이팅](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks#syntax-highlighting)을 올바르게 사용하세요.
       placeholder: |
-        1. 프로젝트를 시작합니다.
-        2. X 버튼을 클릭합니다.
-        3. Y 동작이 발생합니다.
+        1. Start the project.
+        2. Click the X button.
+        3. Y action occurs.
     validations:
       required: true
+
   - type: textarea
     attributes:
       label: Actual vs. Expected behavior
       description: |
         Clearly describe what you expected to happen and what actually happened.  
+        
         Include screenshots, logs, or other helpful information if available.  
         
         **Failure to provide complete information may result in the issue being closed.**
-        
-
-        
-        ## 한국어 버전
-
-        예상한 동작과 실제 동작을 명확히 설명해 주세요.  
-        스크린샷, 로그 또는 다른 유용한 정보를 포함하세요.  
-        
-        **완전한 정보를 제공하지 않으면 이슈가 닫힐 수 있습니다.**
       placeholder: |
         Following the steps above, I expected A to happen, but B occurred instead.
     validations:
       required: true
+
   - type: dropdown
     attributes:
       label: Affected area(s) (Select all that apply)
@@ -98,41 +68,17 @@ body:
         - 'TypeScript'
         - 'Webpack'
         - 'Documentation'
-        
-
-        
-        ## 한국어 버전
-
-        영향 받은 영역을 선택하세요 (해당하는 모든 항목을 선택).
-        - '확실하지 않음'
-        - '인증 (후)'
-        - '연결'
-        - 'UI 로딩 및 스트리밍'
-        - 'Markdown (MDX)'
-        - 'React 기능'
-        - '테스트 환경'
-        - '빌드 (Turbopack)'
-        - 'TypeScript'
-        - 'Webpack'
-        - '문서'
     validations:
       required: true
+
   - type: textarea
     attributes:
       label: Additional context
       description: |
         Provide any additional information that may help us understand the issue.  
+        
         For example:  
         - What environment are you deploying to (Docker, AWS, etc.)?  
         - Is the issue specific to certain browsers or platforms?  
-        
-        
-        
-        ## 한국어 버전
-
-        문제를 이해하는 데 도움이 될 수 있는 추가 정보를 제공해 주세요.  
-        예시:
-        - 배포하는 환경(Docker, AWS 등)은 무엇인가요?
-        - 특정 브라우저나 플랫폼에만 발생하는 문제인가요?
       placeholder: |
         The issue only occurs in specific browsers and is not reproducible locally.

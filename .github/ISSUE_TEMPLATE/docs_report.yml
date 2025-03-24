@@ -6,50 +6,42 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before opening a new documentation issue, is this something you can help us with? Your contributions are welcomed and appreciated. See our [Docs Contribution Guide](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/blob/main/CONTRIBUTING.md) to learn how to edit the B1ND-AUTH-TEMPLATE docs.
-
-        If you are reporting a documentation request, please open it in our [discussions](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/new?category=ideas) instead.
+        📚 **Before opening a new documentation issue**, please check if this is something you can help us with!  
         
-        Thank you for helping us update our docs!
-
-        ---
+        Your contributions are welcomed and appreciated. See our [Docs Contribution Guide](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/blob/main/CONTRIBUTING.md) to learn how to edit the B1ND-AUTH-TEMPLATE documentation.  
         
-        ## 한국어 버전
+        📢 **If you are requesting new documentation**, please open a post in our [discussions](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/new?category=ideas) section instead.  
 
-        새로운 문서 이슈를 열기 전에, 이 문제가 여러분이 해결할 수 있는 것인지 확인해 주세요. 여러분의 기여를 환영하고 감사히 생각합니다. B1ND-AUTH-TEMPLATE 문서를 편집하는 방법은 [문서 기여 가이드](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/blob/main/CONTRIBUTING.md)에서 확인할 수 있습니다.
+        💖 Thank you for helping us improve our documentation!
 
-        문서 요청을 보고하는 경우, [토론](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/discussions/categories/ideas) 섹션에 올려주세요.
-        
-        문서 업데이트에 도움을 주셔서 감사합니다!
-        
   - type: textarea
     attributes:
       label: What is the documentation issue?
-      description: 'Example: There is incorrect or stale information about the contributing.md'
+      description: |
+        Describe the issue in the documentation.  
+        For example: "There is incorrect or outdated information in the `contributing.md` file."
+      placeholder: |
+        Example: The installation steps are outdated in the README.md file.
     validations:
       required: true
+
   - type: textarea
     attributes:
       label: Is there any context that might help us understand?
-      description: A clear description of any added context that might help us understand.
+      description: |
+        Provide any additional context or details that might help us understand the issue better.  
+        For example: "This section is confusing because it lacks examples."
+      placeholder: |
+        Example: This section needs more examples for better understanding.
     validations:
       required: true
+
   - type: input
     attributes:
       label: Does the docs page already exist? Please link to it.
-      description: 'Example: https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/blob/main/docs/contributing.md'
+      description: |
+        If the documentation page already exists, please provide a link to it.  
+        For example: "https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/blob/main/docs/contributing.md"
+      placeholder: 'https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/blob/main/docs/contributing.md'
     validations:
       required: false
-
-      ---
-      
-      ## 한국어 버전
-
-      문서 이슈가 무엇인가요?
-      예시: contributing.md에 잘못된 정보나 오래된 정보가 있습니다.
-
-      문제가 발생한 상황을 설명할 수 있는 추가적인 내용이 있다면 알려 주세요.
-      예시: 사용 방법에 대한 추가 설명이 필요합니다.
-
-      문서 페이지가 이미 존재한다면 링크를 제공해 주세요.
-      예시: https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/blob/main/docs/contributing.md
