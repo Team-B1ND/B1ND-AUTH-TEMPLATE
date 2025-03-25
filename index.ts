@@ -120,7 +120,7 @@ async function run() {
       initial: 0, // Default is npm
     },    {
         type: "select",
-        name: "useAxios",
+        name: "use axios",
         message: "Do you want to include Axios?",
         choices: [
           { title: "Yes", value: true },
