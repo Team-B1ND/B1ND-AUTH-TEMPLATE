@@ -2,7 +2,7 @@ name: PR Opened Notification
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize, reopened]
 
 permissions:
   issues: write
@@ -12,8 +12,19 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Log PR information
+        run: |
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "PR URL: ${{ github.event.pull_request.html_url }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+
+      - name: Check if PR title is valid
+        if: ${{ contains(github.event.pull_request.title, 'Update README.md') }}
+        run: |
+          echo "This is a PR related to README update"
+
       - name: Add PR comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -31,6 +42,7 @@ jobs:
 
       - name: Send Discord notification
         run: |
+          prUrl="${{ github.event.pull_request.html_url }}"
           curl -X POST -H "Content-Type: application/json" \
-            -d '{"content": "새로운 PR이 열렸습니다. 담당자에게 알림이 전송되었습니다.\n\nA new PR has been opened. A notification has been sent to the responsible person.\n\n[PR 링크](${prUrl})"}' \
+            -d "{\"content\": \"새로운 PR이 열렸습니다. 담당자에게 알림이 전송되었습니다.\n\nA new PR has been opened. A notification has been sent to the responsible person.\n\n[PR 링크](${prUrl})\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}

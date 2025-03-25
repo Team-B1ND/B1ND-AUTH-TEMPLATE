@@ -99,8 +99,9 @@ B1ND AUTH TEMPLATE 커뮤니티는 [GitHub Discussions](https://github.com/Team-
 
 B1ND AUTH TEMPLATE 프로젝트에 대한 기여는 환영하며 매우 감사하게 생각합니다. 그러나 기여를 시작하기 전에 [기여 가이드라인](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/docs/contributing_ko.md)을 검토하시어 원활한 기여 경험을 보장해 주세요.
 
-### 첫 기여하기 좋은 이슈:
-새로운 기여자에게 적합한 첫 기여하기 좋은 이슈들이 준비되어 있습니다. 이 이슈들은 범위가 제한적이어서 기여 경험을 쌓고, 기여 프로세스를 이해하며, 코드베이스에 익숙해지기에 좋은 시작점입니다. 첫 기여하기 [좋은 이슈 목록](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)을 확인하고 오늘부터 기여를 시작하세요!
+## 첫 기여하기 좋은 이슈
+새로운 기여자에게 적합한 첫 기여하기 좋은 이슈들이 준비되어 있습니다. 이 이슈들은 범위가 제한적이어서 기여 경험을 쌓고, 기여 프로세스를 이해하며, 코드베이스에 익숙해지기에 좋은 시작점입니다. 첫 기여하기 [좋은 이슈 목록](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)을 확인하고 오늘부터 기여를 시작하세요! [이슈작성법](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/docs/ISSUE_KO.md)
+
 
 ---
 
