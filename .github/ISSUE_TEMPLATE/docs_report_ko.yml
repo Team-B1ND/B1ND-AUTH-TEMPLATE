@@ -1,7 +1,7 @@
 name: '문서 이슈 보고'
 description: B1ND-AUTH-TEMPLATE 문서에 대한 문제를 보고합니다. KOR-VER.
 title: 'Docs: '
-type: docs
+type: Docs
 body:
   - type: markdown
     attributes:
