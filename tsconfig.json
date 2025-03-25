@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+      "outDir": "./dist",
+      "rootDir": "./",
       "target": "es2019",
       "moduleResolution": "bundler",
       "strict": true,
@@ -7,5 +9,6 @@
       "esModuleInterop": true,
       "skipLibCheck": false
     },
-    "exclude": ["templates", "dist"]
+    "include": ["index.ts"],
+    "exclude": ["node_modules", "dist"]
   }
