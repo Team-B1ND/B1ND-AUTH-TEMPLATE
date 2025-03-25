@@ -1,0 +1,44 @@
+name: Close Issue by Admin
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+
+jobs:
+  close-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close issue on admin command
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.payload.issue.number;
+            const comment_body = context.payload.comment.body.toLowerCase();
+            const commenter = context.payload.comment.user.login;
+
+
+            const { data: permissions } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: commenter
+            });
+
+            if (permissions.permission !== 'admin') {
+              console.log('Admin privileges are required.');
+              return;
+            }
+
+
+            if (comment_body.startsWith('@bot close')) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                state: 'closed'
+              });
+              console.log('The issue has been forcibly closed.');
+            }

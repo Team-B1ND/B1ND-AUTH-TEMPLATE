@@ -1,0 +1,26 @@
+name: 'Lock Pull Requests'
+
+on:
+  schedule:
+    - cron: '0 0,12 * * *' 
+  workflow_dispatch: 
+
+permissions:
+  pull-requests: write
+
+concurrency:
+  group: lock-pr
+
+jobs:
+  lock-pr:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'MDEV-DGSW'
+    steps:
+      - name: Lock Inactive Pull Requests
+        uses: dessant/lock-threads@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          add-pr-labels: 'locked' 
+          pr-inactive-days: 14 
+          pr-comment: 'This pull request has been automatically locked due to inactivity for 2 weeks. Please open a new pull request if you encounter similar issues. Thank you.'
+          log-output: true

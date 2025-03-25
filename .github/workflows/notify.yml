@@ -8,11 +8,26 @@ on:
 
 permissions:
   actions: read
+  issues: read
 
 jobs:
   notify-discord:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Issue Information
+        id: get-issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          issue_number=$(gh api "/repos/${{ github.repository }}/issues?state=open" --jq '.[0].number')
+          issue_title=$(gh api "/repos/${{ github.repository }}/issues/$issue_number" --jq '.title')
+          issue_body=$(gh api "/repos/${{ github.repository }}/issues/$issue_number" --jq '.body')
+          issue_url="https://github.com/${{ github.repository }}/issues/$issue_number"
+          echo "issue_number=$issue_number" >> $GITHUB_ENV
+          echo "issue_title=$issue_title" >> $GITHUB_ENV
+          echo "issue_body=$issue_body" >> $GITHUB_ENV
+          echo "issue_url=$issue_url" >> $GITHUB_ENV
+
       - name: Send Discord Notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
@@ -24,14 +39,14 @@ jobs:
             "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
             "content": "🚨 **New Issue Created** 🚨",
             "embeds": [{
-              "title": "${{ github.event.workflow_run.head_commit.message }}",
-              "url": "https://github.com/${{ github.repository }}/issues",
-              "description": "A new issue has been opened in the repository.",
+              "title": "'"${{ env.issue_title }}"'",
+              "url": "'"${{ env.issue_url }}"'",
+              "description": "'"${{ env.issue_body }}"'",
               "color": 5814783,
               "fields": [
                 {
                   "name": "Author",
-                  "value": "${{ github.event.workflow_run.actor }}"
+                  "value": "${{ github.actor }}"
                 }
               ]
             }]
