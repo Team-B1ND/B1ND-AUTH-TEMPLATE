@@ -34,7 +34,7 @@ body:
       placeholder: |
         Example: This section needs more examples for better understanding.
     validations:
-      required: true
+      required: false
 
   - type: input
     attributes:

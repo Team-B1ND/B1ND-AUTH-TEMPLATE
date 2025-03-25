@@ -27,14 +27,14 @@ body:
 
   - type: textarea
     attributes:
-      label: 문제가 이해하는 데 도움이 될 추가적인 정보가 있나요?
+      label: 문제를 이해하는 데 도움이 될 추가적인 정보가 있나요?
       description: |
         문제를 더 잘 이해하는 데 도움이 될 수 있는 추가적인 설명이나 정보를 제공해 주세요.  
         예시: "이 섹션은 예시가 부족해서 이해하기 어렵습니다."
       placeholder: |
         예시: 이 섹션은 더 나은 이해를 위해 예시가 추가되어야 합니다.
     validations:
-      required: true
+      required: false
 
   - type: input
     attributes:
