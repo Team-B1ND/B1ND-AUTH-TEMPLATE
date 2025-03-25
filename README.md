@@ -100,7 +100,7 @@ Please note that our Code of Conduct applies to all B1ND AUTH TEMPLATE community
 Contributions to B1ND AUTH TEMPLATE are welcome and highly appreciated. However, before you jump right into it, we would like you to review our [Contribution Guidelines](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/tree/main/docs/contributing.md) to ensure a smooth experience contributing to the project.
 
 ### Good First Issues:
-We have a list of good first issues that are perfect for newcomers and beginners. These issues are relatively limited in scope, making them a great starting point to gain experience, understand the contribution process, and get familiar with the codebase. Check out the list of good first issues and start contributing today!
+We have a list of good first issues that are perfect for newcomers and beginners. These issues are relatively limited in scope, making them a great starting point to gain experience, understand the contribution process, and get familiar with the codebase. Check out the list of [good first issues](https://github.com/Team-B1ND/B1ND-AUTH-TEMPLATE/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22) and start contributing today!
 
 ---
 

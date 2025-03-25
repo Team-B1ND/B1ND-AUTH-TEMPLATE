@@ -1,0 +1,37 @@
+name: PR Opened Notification
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add PR comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prUser = context.payload.pull_request.user.login;
+            const prNumber = context.payload.pull_request.number;
+            const prUrl = context.payload.pull_request.html_url;
+            const prComment = `안녕하십니까 ${prUser}님 담당자에게 알림이 전송되었습니다. 잠시만 기달려주세요. 😁\n\nHello ${prUser}, a notification has been sent to the responsible person. Please wait a moment.😁 `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: prComment
+            });
+
+      - name: Send Discord notification
+        uses: Ilshidur/action-discord@v2
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: |
+            새로운 PR이 열렸습니다. 담당자에게 알림이 전송되었습니다.\n\nA new PR has been opened. A notification has been sent to the responsible person.\n\n[PR 링크](${prUrl})\n\n[PR Link](${prUrl})
