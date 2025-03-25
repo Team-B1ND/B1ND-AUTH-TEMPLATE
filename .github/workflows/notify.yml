@@ -23,12 +23,11 @@ jobs:
           issue_title=$(gh api "/repos/${{ github.repository }}/issues/$issue_number" --jq '.title')
           issue_body=$(gh api "/repos/${{ github.repository }}/issues/$issue_number" --jq '.body')
 
-          
-          issue_title=$(echo "$issue_title" | tr -d '\n' || echo "No Title")
-          issue_body=$(echo "$issue_body" | tr -d '\n' || echo "No Description")
+
+          issue_body=$(echo "$issue_body" | jq -Rsa .)
+
           issue_url="https://github.com/${{ github.repository }}/issues/$issue_number"
 
-          
           echo "issue_number=$issue_number" >> $GITHUB_ENV
           echo "issue_title=$issue_title" >> $GITHUB_ENV
           echo "issue_body=$issue_body" >> $GITHUB_ENV
@@ -47,7 +46,7 @@ jobs:
             "embeds": [{
               "title": "'"${{ env.issue_title }}"'",
               "url": "'"${{ env.issue_url }}"'",
-              "description": "'"${{ env.issue_body }}"'",
+              "description": '${{ env.issue_body }}',
               "color": 5814783,
               "fields": [
                 {
