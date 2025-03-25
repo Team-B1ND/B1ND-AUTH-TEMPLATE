@@ -1,7 +1,7 @@
 name: 'Report a documentation issue'
 description: Report an issue with the B1ND-AUTH-TEMPLATE documentation ENG-VER.
 title: 'Docs: '
-type: Documentation
+type: docs
 body:
   - type: markdown
     attributes:
