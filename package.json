@@ -48,7 +48,7 @@
   "engines": {
     "node": ">=18.18.0"
   },
-  
+  "packageManager": "pnpm@9.1.1",
   "dependencies": {
     "fs-extra": "^11.3.0"
   }
