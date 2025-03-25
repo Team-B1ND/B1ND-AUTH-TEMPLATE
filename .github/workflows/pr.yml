@@ -58,7 +58,6 @@ jobs:
               return;
             }
 
-            
             if (comment.includes('@admin merge')) {
               if (approvals.length < 2) {
                 console.log('Merge failed: Not enough approvals (Requires at least 2 approvals).');
@@ -70,4 +69,15 @@ jobs:
                 pull_number: pr_number,
               });
               console.log(`PR #${pr_number} has been merged by ${context.payload.sender.login}`);
+            }
+
+            
+            if (comment.includes('/delete')) {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr_number,
+                state: 'closed',
+              });
+              console.log(`PR #${pr_number} has been closed by ${context.payload.sender.login} using /delete command`);
             }
