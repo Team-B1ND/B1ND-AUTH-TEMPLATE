@@ -1,21 +1,14 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { execSync } from "child_process";
 import { existsSync, mkdirSync, readdirSync, copyFileSync, lstatSync } from "fs";
-import { basename, join, resolve } from "path";
-import { getPkgManager } from "./helpers/get-pkg-manager";
-import { installDependencies } from "./helpers/pkg-manager-dependencies";
-import { validateProjectName } from "./helpers/validate-project-name";
+import { basename, resolve, join } from "path";
+import { execSync } from "child_process";
 import prompts from "prompts";
+import { getPkgManager, installDependencies, validateProjectName } from "./helpers"; 
 
 const program = new Command();
 
-// Project name taken as command argument
 let projectPath: string = "";
-
-const handleExit = () => process.exit(0);
-process.on("SIGINT", handleExit);
-process.on("SIGTERM", handleExit);
 
 program
   .name("b1nd-react-app")
@@ -29,11 +22,6 @@ program
 
 const opts = program.opts();
 
-/**
- * Function to copy a directory from source to destination
- * @param src - Path to the source directory
- * @param dest - Path to the destination directory
- */
 function copyDir(src: string, dest: string) {
   if (!existsSync(dest)) mkdirSync(dest, { recursive: true });
   readdirSync(src).forEach((file) => {
@@ -66,21 +54,19 @@ async function run() {
   }
 
   /**
-   * Check if the directory exists and is not empty
+   * Check if the directory already exists
    */
-  if (!existsSync(resolvedProjectPath)) {
-    console.log(`📂 Creating directory: ${resolvedProjectPath}`);
-    mkdirSync(resolvedProjectPath, { recursive: true });
+  if (existsSync(resolvedProjectPath)) {
+    console.log("❌ Directory already exists. Please choose a different project name.");
+    process.exit(1);
   }
 
   /**
    * Create the directory if it doesn't exist
    * If the directory exists, proceed to set up the project
    */
-  if (!existsSync(resolvedProjectPath)) {
-    console.log(`Creating directory: ${resolvedProjectPath}`);
-    mkdirSync(resolvedProjectPath, { recursive: true });
-  }
+  console.log(`📂 Creating directory: ${resolvedProjectPath}`);
+  mkdirSync(resolvedProjectPath, { recursive: true });
 
   /**
    * Prompt the user to choose project settings
@@ -118,38 +104,31 @@ async function run() {
         { title: "bun", value: "bun" },
       ],
       initial: 0, // Default is npm
-    },    {
-        type: "select",
-        name: "useAxios",
-        message: "Do you want to include Axios?",
-        choices: [
-          { title: "Yes", value: true },
-          { title: "No", value: false },
-        ],
-        initial: 0,
-      },
+    },
+    {
+      type: "select",
+      name: "useAxios",
+      message: "Do you want to include Axios?",
+      choices: [
+        { title: "Yes", value: true },
+        { title: "No", value: false },
+      ],
+      initial: 0,
+    },
   ]);
 
   console.log(`📂 Creating project in ${resolvedProjectPath}...`);
 
   try {
-    // Set template path based on selected bundler
+
     let templatePath = resolve(__dirname, "templates", bundler, language);
+
+
     if (useAxios) {
       templatePath = resolve(__dirname, "templates", `${bundler}-axios`, language);
     }
-
-    /**
-     * Set the template path according to the selected bundler
-     */
-    if (bundler === "default") {
-      templatePath = resolve(__dirname, "templates", "default", language);
-    } else if (bundler === "webpack" || bundler === "vite") {
-        templatePath = resolve(__dirname, "templates", bundler, language);
-    } else {
-      console.log("❌ Unsupported bundler");
-      process.exit(1);
-    }
+    
+    
 
     if (!existsSync(templatePath)) {
       console.log(`❌ Template not found: ${templatePath}`);
