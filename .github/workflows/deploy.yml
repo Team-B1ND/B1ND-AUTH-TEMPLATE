@@ -47,14 +47,14 @@ jobs:
           node-version: '20'
 
       - name: Install pnpm
-        run: npm install -g pnpm  
+        run: pnpm install -g pnpm  
 
       - name: Install dependencies
         run: pnpm install  
 
       - name: Publish to NPM
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.USER_TOKEN }}" > ~/.npmrc 
-          npm publish --access public  
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc 
+          pnpm publish --access public  
         env:
-          NPM_TOKEN: ${{ secrets.USER_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
