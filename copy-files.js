@@ -7,3 +7,5 @@ const destDir = path.join(__dirname, "dist/templates");
 fs.copy(sourceDir, destDir, { filter: (src) => !src.includes("node_modules") })
   .then(() => console.log("✅ All template files copied successfully!"))
   .catch((err) => console.error("❌ Error copying files:", err));
+
+  copyFile(path.resolve(__dirname, '.npmrc'), path.resolve(__dirname, 'dist', '.npmrc'));
