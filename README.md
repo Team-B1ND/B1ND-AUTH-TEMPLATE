@@ -30,6 +30,8 @@ You can start with `npx b1nd-react-app [projectname]`.
 
 ### HOW TO INSTALL
 
+![화면 기록 2025-03-25 오전 11 41 31](https://github.com/user-attachments/assets/b4c5fe76-9121-4534-bc13-bec9871beb2e)
+
 
 
 
