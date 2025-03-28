@@ -44,29 +44,27 @@ async function run() {
   const resolvedProjectPath = resolve(process.cwd(), projectPath);
   const projectName = basename(resolvedProjectPath);
 
+
   /**
    * Validate project name
    * @param projectName - Name of the project
    */
-  if (!validateProjectName(projectName)) {
-    console.log("❌ Invalid project name.");
-    process.exit(1);
-  }
+  // if (!validateProjectName(projectName)) {
+  //   console.log("❌ Invalid project name.");
+  //   process.exit(1);
+  // }
 
   /**
    * Check if the directory already exists
    */
-  if (existsSync(resolvedProjectPath)) {
-    console.log("❌ Directory already exists. Please choose a different project name.");
-    process.exit(1);
-  }
-
-  /**
-   * Create the directory if it doesn't exist
-   * If the directory exists, proceed to set up the project
-   */
-  console.log(`📂 Creating directory: ${resolvedProjectPath}`);
-  mkdirSync(resolvedProjectPath, { recursive: true });
+  // if (existsSync(resolvedProjectPath)) {
+  //   console.log(`❌ Directory "${resolvedProjectPath}" already exists. Please choose a different project name.`);
+  //   process.exit(1);
+  // } else {
+    // If the directory doesn't exist, create it
+    console.log(`📂 Creating directory: ${resolvedProjectPath}`);
+    mkdirSync(resolvedProjectPath, { recursive: true });
+  // }
 
   /**
    * Prompt the user to choose project settings
@@ -123,12 +121,9 @@ async function run() {
 
     let templatePath = resolve(__dirname, "templates", bundler, language);
 
-
     if (useAxios) {
       templatePath = resolve(__dirname, "templates", `${bundler}-axios`, language);
     }
-    
-    
 
     if (!existsSync(templatePath)) {
       console.log(`❌ Template not found: ${templatePath}`);

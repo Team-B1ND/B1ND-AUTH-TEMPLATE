@@ -1,9 +1,8 @@
 name: 'Stale Issue Manager'
 
 on:
-
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *' 
 
   workflow_dispatch:
 
@@ -15,11 +14,10 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-     
+
       - name: 'Mark and Close Stale Issues'
         uses: actions/stale@v9
         with:
-
           repo-token: ${{ secrets.USER_TOKEN }}
 
           
@@ -30,10 +28,10 @@ jobs:
           close-issue-message: '활동이 없어 이슈가 자동으로 종료되었습니다. 문제가 지속되면 새 이슈를 만들어 주세요.'
 
           
-          any-of-issue-labels: 'needs reproduction'
-          days-before-issue-close: 3            
-          days-before-issue-stale: 1
-          close-issue-message: '재현 가능한 예제가 없어서 이슈를 종료합니다. 문제가 지속되면 새 이슈를 작성해 주세요.'
+          exempt-issue-labels: 'needs reproduction'
+          days-before-exempt-issue-stale: 1
+          days-before-exempt-issue-close: 3
+          exempt-issue-message: '재현 가능한 예제가 없어서 이슈를 종료합니다. 문제가 지속되면 새 이슈를 작성해 주세요.'
 
           
           days-before-pr-stale: -1

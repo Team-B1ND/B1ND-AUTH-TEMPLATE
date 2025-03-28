@@ -1,6 +1,6 @@
 {
   "name": "b1nd-react-app",
-  "version": "1.2.8",
+  "version": "1.2.15",
   "main": "generate-app",
 "scripts": {
   "release": "ncc build ./index.ts -o ./dist/ --minify --no-cache", 
@@ -27,7 +27,7 @@
     "url": "https://github.com/Team-B1ND/DODAM_AUTH_TEMPLATE"
   },
   "homepage": "https://github.com/Team-B1ND/DODAM_AUTH_TEMPLATE",
-  "description": "React + Typescript BoilerPlate for DGSW Students made by B1ND",
+  "description": "React BoilerPlate for DGSW Students made by B1ND",
   "devDependencies": {
     "@types/node": "20.14.2",
     "@types/prompts": "^2.4.9",
