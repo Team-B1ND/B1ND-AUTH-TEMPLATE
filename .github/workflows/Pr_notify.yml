@@ -44,5 +44,5 @@ jobs:
         run: |
           prUrl="${{ github.event.pull_request.html_url }}"
           curl -X POST -H "Content-Type: application/json" \
-            -d "{\"content\": \"새로운 PR이 열렸습니다. 담당자에게 알림이 전송되었습니다.\n\nA new PR has been opened. A notification has been sent to the responsible person.\n\n[PR 링크](${prUrl})\"}" \
+            -d "{\"content\": \"새로운 PR이 열렸습니다. 담당자에게 알림이 전송되었습니다.\n\nA[PR 링크](${prUrl})\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
